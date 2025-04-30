@@ -1,0 +1,54 @@
+$hover-color: #124c97;
+
+@mixin header-border($size: 2px) {
+    text-decoration: none;
+    border-bottom: solid $size transparent; // Inicialmente transparente
+    transition: border-color 0.3s ease;
+}
+
+.navbar {
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, rgb(255, 255, 255), rgb(47, 126, 245));
+
+    &__logo {
+        width: 6rem;
+        border-radius: 20px;
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &--ref {
+            position: relative;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 2rem;
+            color: rgb(0, 0, 0);
+            transition: color 0.3s ease;
+        
+            &::after {
+                content: '';
+                display: block;
+                height: 3px;
+                width: 0;
+                background: $hover-color;
+                transition: width 0.5s ease;
+                position: absolute;
+                bottom: -3px;
+            }
+        
+            &:hover,
+            &.active {  // <-- Se mantiene marcado cuando es activo
+                color: $hover-color;
+                
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+        
+    }
+}
