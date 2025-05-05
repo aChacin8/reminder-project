@@ -2,14 +2,21 @@ const ModelUsers = require ('../models/Users')
 const jwt = require ('jsonwebtoken')
 const bcrypt = require ('bcrypt')
 const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey"; // Clave secreta para firmar los tokens JWT
+const { hashEmail } = require ('../utils/hash') // Importa la función de hash para el email
 
 const registerUser = async (req, res) => {
     try {
-        const { password, ...rest} = req.body
+        const { password, email, address, phone_num, ...rest} = req.body
         const hashPassword= await bcrypt.hash(password, 10)// Encriptar la contraseña
+        const hashedEmail = hashEmail(email.toLowerCase()); // Asegúrate de convertir a minúsculas
+        const hashedAddress = await bcrypt.hash(address, 10) // Encriptar la dirección
+        const hashedPhone = await bcrypt.hash (phone_num, 10) // Encriptar el teléfono
         const user= await ModelUsers.createUser(
             { 
-                ...rest, 
+                ...rest,
+                address: hashedAddress,
+                phone_num: hashedPhone,
+                email: hashedEmail,
                 password: hashPassword 
             })// Crear el usuario
             res.status(201).json(user)
