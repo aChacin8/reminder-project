@@ -1,4 +1,5 @@
 const knex = require ('../config')
+const { hashEmail } = require ('../utils/hash') // Importa la función de hash para el email
 
 const createUser = (bodyUser) => {
     return knex
@@ -14,11 +15,13 @@ const viewAll = () => {
 }
 
 const findEmail = (email) => {
+    const hashedEmail = hashEmail(email); // Asegúrate de convertir a minúsculas
     return knex
         .select('*')
         .from('users')
-        .where({email}).first() //Confirma que el email existe
-        .where('active', true)
+        .where({email:hashedEmail}) //Confirma que el email existe
+        .andWhere('active', true)
+        .first()
 }
 
 module.exports = {
