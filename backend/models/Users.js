@@ -1,12 +1,14 @@
 const knex = require ('../config')
 const { hashEmail } = require ('../utils/hash') // Importa la función de hash para el email
 
-const createUser = (bodyUser) => {
-    return knex
-        .insert(bodyUser)
-        .into('users')
-        .returning('*')
-}
+const createUser = async (bodyUser) => {
+  const [id] = await knex('users')
+  .insert(bodyUser); // Devuelve el id autoincremental
+  return knex('users')
+  .where('id_users', id)
+  .first(); // Retorna el usuario recién creado
+};
+
 const viewAll = () => {
     return knex
         .select('*')
