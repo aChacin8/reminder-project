@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import '@/styles/Calendar.scss'
 import { useEventContext } from '@/hooks/useEventContext';
 
+const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env
+
 const CardCalendarComponent = () => {
     const {register, handleSubmit, formState: { errors }} = useForm (); 
     const {events, setEvents} = useEventContext();
@@ -13,8 +15,9 @@ const CardCalendarComponent = () => {
         }
         try {
             const token = sessionStorage.getItem ('token');
+            console.log('Token enviado:', token);
 
-            const response = await fetch ('http://localhost:3000/reminder', {
+            const response = await fetch (`${API_URL}/taskly/events`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
