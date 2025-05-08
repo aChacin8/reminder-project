@@ -25,6 +25,7 @@ const findEmail = (email) => {
         .andWhere('active', true)
         .first()
 }
+ 
 
 module.exports = {
     createUser,

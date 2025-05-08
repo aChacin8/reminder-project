@@ -14,7 +14,6 @@ const verifyToken = (req, res, next) => {
         next(); // Llama a la siguiente función de middleware
     } catch (error) {
         return res.status(403).json({ message: 'Token inválido', token }); // Devuelve un error si el token es inválido
-        
     }
 }
 
