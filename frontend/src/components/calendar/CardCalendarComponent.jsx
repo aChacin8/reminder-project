@@ -2,19 +2,21 @@ import { Card, Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import '@/styles/Calendar.scss'
 import { useEventContext } from '@/hooks/useEventContext';
+import { useAuthContext } from '@/hooks/useAuthContext'; // Importa el hook useAuth para obtener el token de autenticación
 
 const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env
 
 const CardCalendarComponent = () => {
     const {register, handleSubmit, formState: { errors }} = useForm (); 
     const {events, setEvents} = useEventContext();
+    const { token } = useAuthContext(); // Obtiene el token de autenticación usando el hook useAuth
+
     const onSubmit = async (data) => {        
         if (new Date(data['endDate-e']) < new Date(data['startDate-e'])) {
             alert('La fecha de finalización no puede ser anterior a la de inicio.');
             return;
         }
         try {
-            const token = sessionStorage.getItem ('token');
             console.log('Token enviado:', token);
 
             const response = await fetch (`${API_URL}/taskly/events`, {
@@ -24,10 +26,10 @@ const CardCalendarComponent = () => {
                     'Authorization': `Bearer ${token}` //Para verificar el JWT
                 },
                 body: JSON.stringify({
-                    name : data ['title-e'],
-                    description: data ['descr-e'],
-                    start_date: data ['startDate-e'],
-                    end_date: data ['endDate-e'],
+                    event_name : data ['title-e'],
+                    event_description: data ['descr-e'],
+                    event_start_date: data ['startDate-e'],
+                    event_end_date: data ['endDate-e'],
                     color: data ['color-e']
                 })  //Se envian los datos al servidor
             });
@@ -57,7 +59,7 @@ const CardCalendarComponent = () => {
                         placeholder='Ingresa un titulo del evento'
                         {...register('title-e', {required: true})}
                     />
-                <p>{errors.name?.message}</p>
+                <p>{errors.event_name?.message}</p>
                 </Form.Group>
                 <Form.Group className='cardCalendar__form-group'>
                     <Form.Label>Descripcion:</Form.Label>
@@ -68,7 +70,7 @@ const CardCalendarComponent = () => {
                         placeholder='Ingresa un descripcion del evento'
                         {...register('descr-e')}
                     />
-                <p>{errors.description?.message}</p>
+                <p>{errors.event_description?.message}</p>
                 </Form.Group>
                 <Form.Group className='m-3'>
                     <Form.Group className='cardCalendar__form-group'>
@@ -80,7 +82,7 @@ const CardCalendarComponent = () => {
                             placeholder='Selecciona la fecha inicial'
                             {...register('startDate-e')}
                         />
-                        <p>{errors.start_date?.message}</p>
+                        <p>{errors.event_start_date?.message}</p>
                     </Form.Group>
                     <Form.Group className='cardCalendar__form-group'>
                         <Form.Label>Fecha Finalización:</Form.Label>
@@ -91,7 +93,7 @@ const CardCalendarComponent = () => {
                             placeholder='Selecciona la fecha final'
                             {...register('endDate-e')}
                         />
-                        <p>{errors.end_date?.message}</p>
+                        <p>{errors.event_end_date?.message}</p>
                     </Form.Group>
                 </Form.Group>
 
