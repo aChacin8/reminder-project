@@ -9,8 +9,8 @@ const port = process.env.PORT || 3000
 
 app.use(cors()) // Permite el acceso a la API desde cualquier origen
 app.use(express.json()) //Maneja el body de las peticiones en formato JSON
-app.use('/taskly', userRoutes)
-app.use('/taskly', eventRoutes) //Rutas de la API
+app.use('/taskly', userRoutes) //Rutas de la API usuarios
+app.use('/taskly', eventRoutes) //Rutas de la API eventos
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`) //Se imprime el puerto en el que corre el servidor
