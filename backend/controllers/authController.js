@@ -38,9 +38,16 @@ const loginUser = async (req, res) => {
         if(!validPassword){
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
-        const token = jwt.sign({id: user.id, email: user.email}, SECRET_KEY, {expiresIn: '8h'}); // Crea el token JWT
-        res.status(200).json({ message: 'Inicio de sesión exitoso' });
-        sessionStorage.setItem('token', token); // Almacena el token en sessionStorage
+        const token = jwt.sign(
+            {
+                id_users: user.id_users, 
+                email: user.email
+            }, 
+                SECRET_KEY, 
+                {expiresIn: '8h'}
+            ); // Crea el token JWT
+
+        res.status(200).json({ message: 'Inicio de sesión exitoso', token});
     } catch (error) {
         res.status(400).json({ message: 'Error al iniciar sesión', error })
     }
