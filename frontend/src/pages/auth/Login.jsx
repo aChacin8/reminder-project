@@ -14,8 +14,6 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         try {
-            console.log('Datos enviados:', data);
-
             const response = await fetch (`${API_URL}/taskly/login`, {
                 method: 'POST',
                 headers: {
@@ -25,22 +23,17 @@ const Login = () => {
             });
     
             const result = await response.json();
-            console.log('Respuesta del backend:', result);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} - ${result.message}`);
             } // Verifica si la respuesta es exitosa
             if (result.token) {
                 login(result.token);
+                alert('Usuario autenticado con éxito');
+                console.log('Usuario autenticado');
+                navigate('/Reminder');
             } else {
                 console.error("Token inválido o ausente:", result);
-            }
-            // Si la respuesta es exitosa, se almacena el token en el contexto de autenticación
-            if( response.status === 200){
-                alert('Usuario autenticado con éxito');
-                console.log('Usuario autenticado', result);
-                login(result.token); // Pasamos el token al contexto de autenticación
-                navigate('/Reminder');
             }
         } catch (error) {
             console.error(error);
