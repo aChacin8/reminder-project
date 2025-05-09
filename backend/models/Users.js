@@ -1,5 +1,5 @@
 const knex = require ('../config')
-const { hashEmail } = require ('../utils/hash') // Importa la función de hash para el email
+const { hashEmail, hashToken } = require ('../utils/hash') // Importa la función de hash para el email
 
 const createUser = async (bodyUser) => {
   const [id] = await knex('users')
@@ -25,10 +25,35 @@ const findEmail = (email) => {
         .andWhere('active', true)
         .first()
 }
- 
+
+const findToken = (token) => {
+    return knex
+        .select('*')
+        .from('users')
+        .where({token: hashToken(token)}) //Confirma que el token existe
+        .andWhere('active', true)
+        .first()
+}
+
+const updateToken = (id, token) => {
+    return knex('users')
+        .where('id_users', id)
+        .update({ token: hashToken(token)})
+        .then(() => {
+            return knex('users')
+                .where('id_users', id)
+                .first()
+        })
+        .catch((error) => {
+            console.error('Error al actualizar el token:', error);
+            throw error; // Lanza el error para que pueda ser manejado por el controlador
+        });
+    }
 
 module.exports = {
     createUser,
     viewAll,
-    findEmail
+    findEmail,
+    findToken,
+    updateToken
 }
