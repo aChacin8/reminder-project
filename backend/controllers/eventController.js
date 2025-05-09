@@ -1,19 +1,16 @@
 const ModelEvent = require('../models/Events'); //Importa el modelo de eventos
 
 const createEvent = async (req, res) => {
+    console.log("REQ.BODY:", req.body);
+    console.log("REQ.USER:", req.user);
     try {
-        console.log("Token:", token); // Muestra el token en la consola para depuración
-
-        console.log("REQ.BODY:", req.body);
-        console.log("REQ.USER:", req.user);
-
         const { event_name, event_description, event_start_date, event_end_date, ...rest } = req.body; //Desestructura el body de la peticion
         const event = await ModelEvent.createEvent({
             ...rest,
-            name: event_name,
-            description: event_description,
-            start_date: event_start_date ,
-            end_date: event_end_date,
+            event_name,
+            event_description,
+            event_start_date ,
+            event_end_date,
             id_users: req.user.id_users //Agrega el id del usuario a la peticion
         }); //Llama a la funcion createEvent del modelo
         if (!event_name || !event_start_date || !event_end_date) { //Verifica que los campos no esten vacios
@@ -34,7 +31,10 @@ const createEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
     try {
-        const events = await ModelEvent.viewAll(); //Llama a la funcion viewAll del modelo
+        const id_users = req.user.id_users; //Obtiene el id del usuario de la peticion
+        console.log("ID_USERS:", id_users); //Muestra el id del usuario en la consola
+        
+        const events = await ModelEvent.viewAll(id_users); //Llama a la funcion viewAll del modelo
         res.status(200).json(events); //Devuelve todos los eventos
         console.log("Eventos obtenidos:", events); //Muestra los eventos obtenidos en la consola
     } catch (error) {
@@ -63,14 +63,14 @@ const updateEvent = async (req, res) => {
             return res.status(404).json({ message: 'Evento no encontrado' }); //Devuelve un error si no se encuentra el evento
         }
 
-        const event = await ModelEvent.createEvent({
+        const event = await ModelEvent.updateEvent({
             ...rest,
-            name: event_name,
-            description: event_description,
-            start_date: event_start_date ,
-            end_date: event_end_date,
+            event_name,
+            event_description,
+            event_start_date ,
+            event_end_date,
             id_users: req.user.id_users //Agrega el id del usuario a la peticion
-        });  //Llama a la funcion updateEvent del modelo
+        }); //Llama a la funcion updateEvent del modelo
         if(!event_name || !event_start_date || !event_end_date) { //Verifica que los campos no esten vacios
             return res.status(400).json({ message: 'Faltan campos obligatorios' }); //Devuelve un error si faltan campos obligatorios
         }
