@@ -8,17 +8,18 @@ const createEvent = async (bodyEvent) => {
     .first(); // Retorna el evento recién creado
 }
 
-const viewAll = async () => {
+const viewAll = async (idUsers) => {
     return knex('events')
         .select('*')
         .where('active', true)
+        .andWhere('id_users', idUsers)
 }
 
 const findById = async (idEvents) => {
     return knex('events')
         .select('*')
         .where('id_events', idEvents)
-        .andWhere('active', true)
+        .andWhere('id_users', true)
 }
 
 const updateEvent = async (idEvents, bodyEvents)=> {
