@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { useAuthContext } from "@/hooks/useAuthContext"; // Importa el hook useAuth para obtener el token de autenticación
+
 const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env
+
 const EventContext = createContext(); 
 
 const EventProvider = ({children}) => {
@@ -10,11 +12,9 @@ const EventProvider = ({children}) => {
 
     useEffect(() => {
         const fetchEvents = async () => {
+            if (!token) return; // 👈 No hay token, no intentes obtener eventos
+
             try {
-                if (!token) {
-                    throw new Error('Token no proporcionado');
-                }
-    
                 const response = await fetch(`${API_URL}/taskly/events`, {
                     method: 'GET',
                     headers: {
@@ -26,8 +26,9 @@ const EventProvider = ({children}) => {
                 if (!response.ok) {
                     throw new Error('Error al obtener los eventos');
                 }
-    
+
                 const data = await response.json();
+                console.log('Eventos obtenidos:', data); // Muestra los eventos obtenidos
                 setEvents(data);
             } catch (error) {
                 console.log(error);
