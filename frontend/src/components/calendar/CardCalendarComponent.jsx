@@ -17,8 +17,6 @@ const CardCalendarComponent = () => {
             return;
         }
         try {
-            console.log('Token enviado:', token);
-
             const response = await fetch (`${API_URL}/taskly/events`, {
                 method: 'POST',
                 headers: {
@@ -35,11 +33,10 @@ const CardCalendarComponent = () => {
             });
             
             const result = await response.json();
-            console.log(result);
+            console.log("Respuesta del backend");
+            setEvents ([...events,result]); //Actualizar el contexto de los eventos
             alert('Evento creado con éxito');
 
-            setEvents ([...events,result]); //Actualizar el contexto de los eventos
-            
         } catch (error) {
             console.log(error);
             alert('Hubo un error al crear el evento');
