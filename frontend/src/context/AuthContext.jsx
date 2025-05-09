@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import {jwtDecode} from 'jwt-decode'; //Libreria para decodificar el token JWT
 
 const AuthContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env
+
 
 const AuthProvider = ({children})=> {
     const [isAuth, setIsAuth] = useState(false);  //Para saber si el usuario esta autenticado
@@ -10,37 +12,43 @@ const AuthProvider = ({children})=> {
     
     const login = (data) => {
         const token = typeof data === 'string' ? data : data.token;
-        sessionStorage.setItem ('token', token); //Almacena el token en el sessionStorage
+        setToken(token); //Almacena el token en el estado
         const user = jwtDecode(token); //Decodifica el token
         setUserPayload (user); //Almacena el payload decodificado
         setIsAuth(true); //Actualiza el estado de autenticacion a verdadero
-        setToken(token); //Almacena el token en el estado
     }
 
     const logout = () => {
-        sessionStorage.removeItem ('token'); //Elimina el token del sessionStorage
         setUserPayload (null); //Borra el payload decodificado
         setIsAuth(false); //Actualiza el estado de autenticacion a falso
         setToken(null); //Borra el token del estado
     }
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        if (token) {
+        const fetchToken = async () => {
             try {
-                const decode = jwtDecode(token);
-                setUserPayload(decode);
-                setIsAuth(true);
+                const response = await fetch(`${API_URL}/taskly/verify-token`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Agrega el token al encabezado de autorización
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener el token');
+                }
+
+                const result = await response.json();
+                console.log('Token obtenido:', result); // Muestra el token obtenido
             } catch (error) {
-                console.error("Token inválido:", error.message);
-                sessionStorage.removeItem('token');
-                setUserPayload(null);
-                setIsAuth(false);
+                console.error('Error al obtener el token:', error);
             }
         }
-    }, []);
+        if (token) {
+            fetchToken(); //Llama a la funcion para obtener el token
+        }
+    }, [token]); //Dependencia del token
     
-
     const data = {
         userPayload,
         isAuth,
