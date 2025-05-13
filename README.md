@@ -30,8 +30,8 @@ npm start
 
 -  El token es decodificado con jwt-decode para obtener datos del usuario (como id_users y email) sin comprometer seguridad.
 
-# Registro de Usuarios
-## Endpoint: POST /taskly/register
+## Registro de Usuarios
+### Endpoint: POST /taskly/register
 
 Crea un nuevo usuario con la siguiente estructura:
 
