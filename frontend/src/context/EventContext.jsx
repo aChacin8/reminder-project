@@ -9,6 +9,8 @@ const EventProvider = ({children}) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const { token } = useAuthContext(); // Obtiene el token de autenticación usando el hook useAuth
+    const [showModal, setShowModal] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -45,6 +47,10 @@ const EventProvider = ({children}) => {
         events,
         setEvents,
         loading,
+        showModal,
+        setShowModal,
+        selectedEvent,
+        setSelectedEvent,
     };
 
     return (
