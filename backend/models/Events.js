@@ -19,7 +19,6 @@ const findById = async (idEvents) => {
     return knex('events')
         .select('*')
         .where('id_events', idEvents)
-        .andWhere('id_users', true)
 }
 
 const updateEvent = async (idEvents, bodyEvents)=> {
