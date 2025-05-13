@@ -31,7 +31,7 @@ const Login = () => {
                 login(result.token);
                 alert('Usuario autenticado con éxito');
                 console.log('Usuario autenticado');
-                navigate('/Reminder');
+                navigate('/calendario'); // Redirige al usuario a la página de calendario
             } else {
                 console.error("Token inválido o ausente:", result);
             }
