@@ -12,6 +12,7 @@ const AuthProvider = ({children})=> {
     
     const login = (data) => {
         const token = typeof data === 'string' ? data : data.token;
+        sessionStorage.setItem('token', token);
         setToken(token); //Almacena el token en el estado
         const user = jwtDecode(token); //Decodifica el token
         setUserPayload (user); //Almacena el payload decodificado
@@ -23,6 +24,16 @@ const AuthProvider = ({children})=> {
         setIsAuth(false); //Actualiza el estado de autenticacion a falso
         setToken(null); //Borra el token del estado
     }
+
+    useEffect(() => {
+        const storedToken = sessionStorage.getItem('token'); //Obtiene el token del sessionStorage
+        if (storedToken) {
+            setToken(storedToken); //Almacena el token en el estado
+            const user = jwtDecode(storedToken); //Decodifica el token
+            setUserPayload(user); //Almacena el payload decodificado
+            setIsAuth(true); //Actualiza el estado de autenticacion a verdadero
+        }
+    }, []);
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -37,7 +48,7 @@ const AuthProvider = ({children})=> {
                 if (!response.ok) {
                     throw new Error('Error al obtener el token');
                 }
-
+                
                 const result = await response.json();
                 console.log('Token obtenido:', result); // Muestra el token obtenido
             } catch (error) {
