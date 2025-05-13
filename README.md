@@ -26,7 +26,7 @@ npm start
    - Asociar cada evento de forma segura al usuario autenticado.
    - Proteger rutas y operaciones que requieren autenticación con verificación del token.
 
-#### Consideraciones importantes:
+### Consideraciones importantes:
 
 -  El token es decodificado con jwt-decode para obtener datos del usuario (como id_users y email) sin comprometer seguridad.
 
