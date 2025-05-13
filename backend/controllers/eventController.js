@@ -31,12 +31,9 @@ const createEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
     try {
-        const id_users = req.user.id_users; //Obtiene el id del usuario de la peticion
-        console.log("ID_USERS:", id_users); //Muestra el id del usuario en la consola
-        
+        const id_users = req.user.id_users; //Obtiene el id del usuario de la peticion        
         const events = await ModelEvent.viewAll(id_users); //Llama a la funcion viewAll del modelo
         res.status(200).json(events); //Devuelve todos los eventos
-        console.log("Eventos obtenidos:", events); //Muestra los eventos obtenidos en la consola
     } catch (error) {
         res.status(400).json({ message: 'Error al obtener los eventos', error }); //Devuelve un error si no se pueden obtener los eventos
     }
