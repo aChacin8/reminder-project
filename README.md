@@ -7,7 +7,7 @@ Taskly es una aplicación web diseñada para la gestión de eventos personales. 
 git clone https://github.com/aChacin8/reminder-project.git
 `
 
-####Migracion de Base de Datos 
+#### Migracion de Base de Datos 
 `
 knex migrate:latest
 `
