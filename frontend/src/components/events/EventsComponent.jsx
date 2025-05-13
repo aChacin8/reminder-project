@@ -1,8 +1,8 @@
 import { Card, Button } from 'react-bootstrap';
+import '@/styles/Calendar.scss';
 import { useEffect } from 'react';
 import { useEventContext } from '@/hooks/useEventContext';
 import { useAuthContext } from '@/hooks/useAuthContext';
-import '@/styles/Calendar.scss';
 import UpdateEventsComponent from './UpdateEventsComponent';
 import DeleteEventsComponent from './DeleteEventsComponent';
 const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env

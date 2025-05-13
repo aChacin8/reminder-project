@@ -3,7 +3,8 @@ const jwt = require ('jsonwebtoken')
 const bcrypt = require ('bcrypt')
 const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey"; // Clave secreta para firmar los tokens JWT
 const { hashEmail, hashToken } = require ('../utils/hash') // Importa la función de hash para el email
-const {verifyToken} = require ('../middlewares/authMiddleware') // Importa el middleware de verificación de token
+const {verifyToken} = require ('../middlewares/authMiddleware'); // Importa el middleware de verificación de token
+const { first } = require('../config');
 
 const registerUser = async (req, res) => {
     try {
@@ -61,7 +62,12 @@ const loginUser = async (req, res) => {
         const hashedToken = hashToken(token); // Encripta el token
         await ModelUsers.updateToken(user.id_users, hashedToken); // Actualiza el token en la base de datos
                     
-        res.status(200).json({ message: 'Inicio de sesión exitoso', token});
+        res.status(200).json({ 
+            message: 'Inicio de sesión exitoso',
+            token,
+            first_name: user.first_name,
+            last_name: user.last_name
+        });
     } catch (error) {
         res.status(400).json({ message: 'Error al iniciar sesión', error })
     }

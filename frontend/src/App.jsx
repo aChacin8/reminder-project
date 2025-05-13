@@ -4,6 +4,7 @@ import RoutesIndex from '@/routes/RoutesIndex'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '@/context/AuthContext'
 import { EventProvider } from '@/context/EventContext'
+import WebSocketNotifications from './components/WebSocketsNotifications'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
     <AuthProvider>
       <EventProvider>
         <BrowserRouter>
+          <WebSocketNotifications/>
           <RoutesIndex/>
         </BrowserRouter>
       </EventProvider>
