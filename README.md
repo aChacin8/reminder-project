@@ -30,8 +30,8 @@ npm start
 
 -  El token es decodificado con jwt-decode para obtener datos del usuario (como id_users y email) sin comprometer seguridad.
 
-# Registro de Usuarios
-## Endpoint: POST /taskly/register
+## Registro de Usuarios
+### Endpoint: POST /taskly/register
 
 Crea un nuevo usuario con la siguiente estructura:
 
@@ -51,7 +51,7 @@ El email se transforma a minúsculas y se hashea para mayor privacidad.
 
 Dirección y teléfono también son encriptados con bcrypt.
 
-# Login de Usuarios
+## Login de Usuarios
 ##### Endpoint: POST /taskly/login
 Se realiza enviando:
 
@@ -67,17 +67,17 @@ Se realiza enviando:
   "token": "eyJhbGciOiJIUzI1NiIsInR5..."
 }
 
-# Creación de Eventos
+## Creación de Eventos
 Una vez autenticado, el usuario puede crear un evento único asociado a su cuenta.
 
-## Endpoint: POST /taskly/events
+### Endpoint: POST /taskly/events
 Requiere token JWT en los headers:
 > 
 Authorization: Bearer <token>
 
 ##### Estructura del body:
 
-# Consideraciones para el Usuario
+## Consideraciones para el Usuario
 
 > {
   "title": "Examen Final",
@@ -87,14 +87,14 @@ Authorization: Bearer <token>
   "isImportant": true
 }
 
-# Consideraciones para el Usuario
+## Consideraciones para el Usuario
 - Usa correos válidos y contraseñas seguras.
 
 - Los eventos deben tener fechas válidas (fecha de inicio menor que la fecha final"
 
 - ##### DATOS .ENV SENSIBLES QUE NO SE ENCUENTRAN PUBLICADOS PARA CORRER EL SERVIDOR
 
-#  Tecnologías Usadas
+##  Tecnologías Usadas
 - Frontend: React, Context API, jwt-decode.
 
 - Backend: Node.js, Express, bcrypt, hash, node-cron, jsonwebtoken.
