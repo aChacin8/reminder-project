@@ -1,10 +1,10 @@
 
-import './App.css'
-import RoutesIndex from '@/routes/RoutesIndex'
-import { BrowserRouter } from 'react-router-dom'
-import { AuthProvider } from '@/context/AuthContext'
-import { EventProvider } from '@/context/EventContext'
-import WebSocketNotifications from '@/components/websocket/WebSocketsNotifications'
+import './App.css';
+import RoutesIndex from '@/routes/RoutesIndex';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from '@/context/AuthContext';
+import { EventProvider } from '@/context/EventContext';
+import WebSocketNotifications from '@/components/websocket/WebSocketsNotifications';
 
 function App() {
 
