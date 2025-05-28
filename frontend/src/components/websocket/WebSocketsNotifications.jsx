@@ -1,35 +1,38 @@
 // src/components/WebSocketNotifications.jsx
 import { useEffect, useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const WebSocketNotifications = () => {
-    const { user } = useContext(AuthContext);
+    const { userPayload } = useContext(AuthContext);
 
     useEffect(() => {
-        if (!user) return;
+        if (!userPayload?.id_users) return;
 
-        const socket = io(API_URL);
-
-        socket.on("event-expiring", (data) => {
-            if (data.userId === user.id_users) {
-                toast.info(data.message, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
-            }
+        const socket = io(API_URL, {
+            transports: ["websocket"],
         });
 
+        socket.on("connect", () => {
+            console.log("WebSocket conectado con ID:", socket.id);
+
+            socket.emit("join-user-room", userPayload.id_users);
+        }); // Unirse a la sala del usuario
+
+        socket.on("disconnect", () => {
+            console.log("WebSocket desconectado");
+        }); // Manejar desconexión
+        
+        socket.on("event-expiring", (data) => {
+            console.log("Notificación recibida:", data);
+            alert("Notificación: " + data.message);
+        });         // Escuchar notificaciones del backend
         return () => {
             socket.disconnect();
         };
-    }, [user]);
+    }, [userPayload]);
 
     return null;
 };
