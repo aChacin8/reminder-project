@@ -1,13 +1,20 @@
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { useAuthContext } from '@/hooks/useAuthContext';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from '@/components/Header'
+import UpdateProfileComponent from "@/components/profile/UpdateProfileComponent";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
-    const { token, userPayload } = useAuthContext();
-    const [userData, setUserData] = useState(null);
+    const { 
+        token, 
+        userPayload, 
+        setShowModal, 
+        setSelectedUser, 
+        userData, 
+        setUserData
+    } = useAuthContext();
 
     useEffect(() => {
         const userById = async () => {
@@ -20,7 +27,7 @@ const Profile = () => {
                     }
                 });
 
-                const result = await response.json();
+                const result = await response.json();                
                 setUserData(result);
             } catch (error) {
                 console.log("Error al encontrar por Id", error);
@@ -28,24 +35,37 @@ const Profile = () => {
         };
 
         userById();
-    }, [userPayload, token]);
+    }, [userPayload, token, setUserData]);
+
+    const handleEdit = (user) => {
+        setSelectedUser(user);
+        setShowModal(true);
+    }
 
     return (
         <>
             <Header />
-            <Card>
-                <Card.Body>
+            <Card className="userCard">
+                <Card.Body className="userCard__body">
                     <Card.Title>Perfil</Card.Title>
                     {userData && (
-                        <div>
+                        <div className="userCard__content">
                             <Card.Text>Nombre: {userData.first_name}</Card.Text>
                             <Card.Text>Apellido: {userData.last_name}</Card.Text>
                             <Card.Text>Dirección: {userData.address}</Card.Text>
                             <Card.Text>Teléfono: {userData.phone_num}</Card.Text>
+                            <Button 
+                                variant="primary" 
+                                className='userCard__buttonUpdate' 
+                                onClick={()=> handleEdit (userData)}
+                                >
+                                    Editar
+                                </Button>
                         </div>
                     )}
                 </Card.Body>
             </Card>
+            <UpdateProfileComponent/>
         </>
     );
 };
