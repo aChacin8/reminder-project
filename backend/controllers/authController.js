@@ -1,101 +1,120 @@
-const ModelUsers = require ('../models/Users')
-const jwt = require ('jsonwebtoken')
-const bcrypt = require ('bcrypt')
-const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey"; // Clave secreta para firmar los tokens JWT
-const { hashEmail, hashToken } = require ('../utils/hash') // Importa la función de hash para el email
-const {verifyToken} = require ('../middlewares/authMiddleware'); // Importa el middleware de verificación de token
-const { first } = require('../config');
+    const ModelUsers = require ('../models/Users')
+    const jwt = require ('jsonwebtoken')
+    const bcrypt = require ('bcrypt')
+    const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey"; // Clave secreta para firmar los tokens JWT
+    const { hashEmail, hashToken } = require ('../utils/hash') // Importa la función de hash para el email
+    const { encrypt, decrypt} = require('../utils/crypto');
 
-const registerUser = async (req, res) => {
-    try {
-        const { password, email, address, phone_num, ...rest} = req.body
-        const hashPassword= await bcrypt.hash(password, 10)// Encriptar la contraseña
-        const hashedEmail = hashEmail(email.toLowerCase()); // Encripta el email
-        const hashedAddress = await bcrypt.hash(address, 10) // Encriptar la dirección
-        const hashedPhone = await bcrypt.hash (phone_num, 10) // Encriptar el teléfono
-        const token = jwt.sign(
-            {
-                email: hashedEmail
-            }, 
-                SECRET_KEY, 
-                {expiresIn: '8h'}
-            ); // Crea el token JWT
-        const hashedToken = hashToken(token); // Encripta el token
-        const user= await ModelUsers.createUser(
-            { 
-                ...rest,
-                address: hashedAddress,
-                phone_num: hashedPhone,
-                email: hashedEmail,
-                password: hashPassword,
-                token: hashedToken, // Almacena el token en la base de datos
-                active: true // Asegúrate de que el usuario esté activo al registrarse 
-            })// Crear el usuario
-            res.status(201).json(user)
-    } catch (error) {
-        console.log('Error en registerUser:', error);
-        res.status(400).json({ message: 'Error al registrar el usuario', error })
+    const registerUser = async (req, res) => {
+        try {
+            // Verifica que el cuerpo de la solicitud contenga los campos necesarios
+            const { password, email, address, phone_num, ...rest} = req.body
+            const hashPassword= await bcrypt.hash(password, 10)
+            const hashedEmail = hashEmail(email.toLowerCase()); 
+            const encryptedAddress = encrypt (address);
+            const encryptedPhone = encrypt (phone_num);
+            
+            // Generación del token JWT y hashing del token
+            const token = jwt.sign(
+                {
+                    email: hashedEmail
+                }, 
+                    SECRET_KEY, 
+                    {expiresIn: '8h'}
+                ); // Crea el token JWT
+            const hashedToken = hashToken(token); // Encripta el token
+            
+            // Crea el usuario con los datos encriptados y hasheados
+            const user= await ModelUsers.createUser(
+                { 
+                    ...rest,
+                    address: encryptedAddress,
+                    phone_num: encryptedPhone,
+                    email: hashedEmail,
+                    password: hashPassword,
+                    token: hashedToken, // Almacena el token en la base de datos
+                    active: true // Asegúrate de que el usuario esté activo al registrarse 
+                })// Crear el usuario
+                res.status(201).json(user)
+        } catch (error) {
+            console.log('Error en registerUser:', error);
+            res.status(400).json({ message: 'Error al registrar el usuario', error })
+        }
     }
-}
 
 const loginUser = async (req, res) => {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     try {
-        const user = await ModelUsers.findEmail(email); // Verifica si el email existe
+        // Buscar al usuario por email tal como lo recibe el cliente (sin hash)
+        const user = await ModelUsers.findEmail(email);
         if (!user) {
             return res.status(401).json({ message: 'Credenciales inválidas' });
         }
-        const validPassword = await bcrypt.compare(password, user.password); // Compara la contraseña ingresada con la almacenada
-        if(!validPassword){
+
+        // Verifica la contraseña con bcrypt
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
+
+        // Generar un nuevo token JWT
         const token = jwt.sign(
             {
-                id_users: user.id_users, 
+                id_users: user.id_users,
                 email: user.email
-            }, 
-                SECRET_KEY, 
-                {expiresIn: '8h'}
-            ); // Crea el token JWT
-        
-        const hashedToken = hashToken(token); // Encripta el token
-        await ModelUsers.updateToken(user.id_users, hashedToken); // Actualiza el token en la base de datos
-                    
-        res.status(200).json({ 
+            },
+            SECRET_KEY,
+            { expiresIn: '8h' }
+        );
+
+        // Guardar el token hasheado en la base de datos
+        const hashedToken = hashToken(token);
+        await ModelUsers.updateToken(user.id_users, hashedToken);
+
+        // Desencriptar campos sensibles
+        const decryptedAddress = user.address ? decrypt(user.address) : '';
+        const decryptedPhone = user.phone_num ? decrypt(user.phone_num) : '';
+
+        // Enviar respuesta al frontend
+        res.status(200).json({
             message: 'Inicio de sesión exitoso',
             token,
             first_name: user.first_name,
-            last_name: user.last_name
+            last_name: user.last_name,
+            address: decryptedAddress,
+            phone_num: decryptedPhone
         });
-    } catch (error) {
-        res.status(400).json({ message: 'Error al iniciar sesión', error })
-    }
-}
-
-const getTokenByEmail = async (req, res)=> {
-    console.log("BODY:", req.body); // Verifica el cuerpo recibido
-
-    const {email} = req.body;
-
-    try {
-        const user = await ModelUsers.findEmail(email); // Verifica si el email existe
-        if (!user) {
-            return res.status(401).json({ message: 'Credenciales inválidas, Usuario no encontrado' });
-        }
-
-        if (!user.token) {
-            return res.status(401).json({ message: 'Credenciales inválidas, Token no encontrado' });
-        }
-        res.status(200).json({ message: 'Token encontrado', token: user.token });
 
     } catch (error) {
-        res.status(400).json({ message: 'Error al obtener el token', error })
+        console.error('Error en loginUser:', error);
+        res.status(400).json({ message: 'Error al iniciar sesión', error });
     }
-}
+};
 
-module.exports = {
-    loginUser,
-    registerUser,
-    getTokenByEmail
-}
+    const getTokenByEmail = async (req, res)=> {
+        console.log("BODY:", req.body); // Verifica el cuerpo recibido
+
+        const {email} = req.body;
+
+        try {
+            const user = await ModelUsers.findEmail(email); // Verifica si el email existe
+            if (!user) {
+                return res.status(401).json({ message: 'Credenciales inválidas, Usuario no encontrado' });
+            }
+
+            if (!user.token) {
+                return res.status(401).json({ message: 'Credenciales inválidas, Token no encontrado' });
+            }
+            res.status(200).json({ message: 'Token encontrado', token: user.token });
+
+        } catch (error) {
+            res.status(400).json({ message: 'Error al obtener el token', error })
+        }
+    }
+
+    module.exports = {
+        loginUser,
+        registerUser,
+        getTokenByEmail
+    }
