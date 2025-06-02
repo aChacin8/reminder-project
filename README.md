@@ -9,7 +9,8 @@ git clone https://github.com/aChacin8/reminder-project.git
 `
 npm i //Para instalar las dependencias 
 `
-** ⚠️ Advertencia**
+
+##⚠️ Advertencia##
 Si no cuentas con los archivos ".env" no podrás tener acceso a la página, ya que hacemos uso de variables de entorno para filtrar datos sensibles 
 
 #### Migracion de Base de Datos 
