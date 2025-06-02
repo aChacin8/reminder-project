@@ -35,10 +35,6 @@ const createEvent = async (req, res) => {
         }
         res.status(201).json(event); //Devuelve el evento creado
         console.log("Evento creado:", event); //Muestra el evento creado en la consola
-        console.log("Fecha recibida:", event_start_date);
-console.log("Fecha formateada:", formatDateForMySQL(event_start_date));
-console.log("Fecha actual:", new Date());
-
     } catch (error) {
         res.status(400).json({ message: 'Error al crear el evento', error }); //Devuelve un error si no se puede crear el evento
     }
