@@ -8,12 +8,12 @@ git clone https://github.com/aChacin8/reminder-project.git
 `
 
 `
-npm i //Para instalar las dependencias 
+npm i
 `
 
 ## ⚠️ Advertencia 
 
-Si no cuentas con los archivos ".env" no podrás tener acceso a la página, ya que hacemos uso de variables de entorno para filtrar datos sensibles 
+#### Si no cuentas con los archivos ".env" no podrás tener acceso a la página, ya que hacemos uso de variables de entorno para filtrar datos sensibles 
 
 #### Migracion de Base de Datos 
 `
@@ -51,13 +51,14 @@ Crea un nuevo usuario con la siguiente estructura:
   "phone_num": "1234567890"
 }
 
+
 ### Datos encriptados:
 
 La contraseña (password) se encripta usando bcrypt.
 
 El email se transforma a minúsculas y se hashea para mayor privacidad.
 
-Dirección y teléfono también son encriptados con bcrypt.
+Dirección y teléfono también se encriptan en formato AES-GCM, además, estos se desencriptan para que el usuario pueda editarlos (si gusta) una vez haya iniciado sesión.
 
 ## Login de Usuarios
 ##### Endpoint: POST /taskly/login
@@ -83,9 +84,7 @@ Requiere token JWT en los headers:
 > 
 Authorization: Bearer <token>
 
-##### Estructura del body:
-
-## Consideraciones para el Usuario
+##### Estructura del body de eventos:
 
 > {
   "title": "Examen Final",
@@ -103,8 +102,8 @@ Authorization: Bearer <token>
 - ##### DATOS .ENV SENSIBLES QUE NO SE ENCUENTRAN PUBLICADOS PARA CORRER EL SERVIDOR
 
 ##  Tecnologías Usadas
-- Frontend: React, Context API, jwt-decode.
+- Frontend: React, Context API, jwt-decode, WebSockets, Sass.
 
-- Backend: Node.js, Express, bcrypt, hash, node-cron, jsonwebtoken.
+- Backend: Node.js, Express, bcrypt, hash, crypto, websockets node-cron, jsonwebtoken.
 
-- Base de Datos: MySQL.
+- Base de Datos: MySQL y ORM knex.
