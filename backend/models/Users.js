@@ -28,9 +28,9 @@ const findEmail = (email) => {
 
 const findById = (idUsers) => {
     return knex
-        .select('*')
-        .from('users')
-        .where('id_users', idUsers)
+    .from('users')
+    .where('id_users', idUsers)
+    .first()
 }
 
 const findToken = (token) => {
