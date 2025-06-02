@@ -1,5 +1,16 @@
 const ModelEvent = require('../models/Events'); //Importa el modelo de eventos
 
+const formatDateForMySQL = (date) => {
+    const local = new Date(date);
+    const yyyy = local.getFullYear();
+    const mm = String(local.getMonth() + 1).padStart(2, '0');
+    const dd = String(local.getDate()).padStart(2, '0');
+    const hh = String(local.getHours()).padStart(2, '0');
+    const min = String(local.getMinutes()).padStart(2, '0');
+    const ss = '00';
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+};
+
 const createEvent = async (req, res) => {
     console.log("REQ.BODY:", req.body);
     console.log("REQ.USER:", req.user);
@@ -24,6 +35,10 @@ const createEvent = async (req, res) => {
         }
         res.status(201).json(event); //Devuelve el evento creado
         console.log("Evento creado:", event); //Muestra el evento creado en la consola
+        console.log("Fecha recibida:", event_start_date);
+console.log("Fecha formateada:", formatDateForMySQL(event_start_date));
+console.log("Fecha actual:", new Date());
+
     } catch (error) {
         res.status(400).json({ message: 'Error al crear el evento', error }); //Devuelve un error si no se puede crear el evento
     }
@@ -48,9 +63,6 @@ const getEventById = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: 'Error al obtener el evento, en getEvent', error }); //Devuelve un error si no se puede obtener el evento
     }
-}
-const formatDateForMySQL = (date) => {
-    return new Date(date).toISOString().slice(0, 19).replace('T', ' '); //Formatea la fecha a un formato legible
 }
 
 const updateEvent = async (req, res) => {
