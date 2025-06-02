@@ -30,7 +30,7 @@ const initWebSocket = (server) => {
         console.log('Verificando eventos por vencerse...');
 
         const now = new Date();
-        const in24hrs = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        // const in24hrs = new Date(now.getTime() + 24 * 60 * 60 * 1000);
         const in15mins = new Date(now.getTime() + 15 * 60 * 1000);
 
         try {
