@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const knex = require ('../config')
 
 const deleteExpiredEvents = async () => {
-    cron.schedule('/30 * * * *', async () => { // Se ejecuta cada minuto
+    cron.schedule('*/30 * * * *', async () => { // Se ejecuta cada minuto
     const now = new Date(); // Obtiene la fecha y hora actual
 
     try {

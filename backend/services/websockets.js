@@ -26,7 +26,7 @@ const initWebSocket = (server) => {
     });
 
     // Cron para verificar eventos que expiran en los siguientes 15 minutos
-    cron.schedule('/15 * * * *', async () => {
+    cron.schedule('*/15 * * * *', async () => {
         console.log('Verificando eventos por vencerse...');
 
         const now = new Date();
