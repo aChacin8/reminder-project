@@ -15,7 +15,6 @@ const EventProvider = ({children}) => {
     useEffect(() => {
         const fetchEvents = async () => {
             if (!token) return; // 👈 No hay token, no intentes obtener eventos
-
             try {
                 const response = await fetch(`${API_URL}/taskly/events`, {
                     method: 'GET',
