@@ -50,7 +50,7 @@ const AuthProvider = ({children})=> {
                 }
                 
                 const result = await response.json();
-                console.log('Validación:', result); 
+                console.log('Validacion:', result); // Muestra el token obtenido
             } catch (error) {
                 console.error('Error al obtener el token:', error);
             }
