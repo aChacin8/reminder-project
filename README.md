@@ -6,6 +6,7 @@ Taskly es una aplicación web diseñada para la gestión de eventos personales. 
 `
 git clone https://github.com/aChacin8/reminder-project.git
 `
+
 `
 npm i //Para instalar las dependencias 
 `
