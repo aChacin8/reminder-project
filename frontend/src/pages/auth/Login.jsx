@@ -21,7 +21,6 @@ const Login = () => {
                 },
                 body: JSON.stringify(data)
             });
-    
             const result = await response.json();
 
             if (!response.ok) {
@@ -31,7 +30,7 @@ const Login = () => {
                 login(result.token);
                 alert('Usuario autenticado con éxito');
                 console.log('Usuario autenticado');
-                navigate('/calendario'); // Redirige al usuario a la página de calendario
+                navigate('/calendario'); // Redirige al usuario a la página de calendario                
             } else {
                 console.error("Token inválido o ausente:", result);
             }
@@ -99,7 +98,6 @@ const Login = () => {
             </Card.Body>
         </Card>
         </>
-        
     );
 }
 
