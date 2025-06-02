@@ -1,5 +1,5 @@
 const ModelUsers = require('../models/Users')
-
+const { decrypt } = require('../utils/crypto');
 
 const createUser = async (req, res) => {
     try {
@@ -22,21 +22,26 @@ const viewAllUsers = (req, res) => {
         })
 }
 
-const findById = (req, res) => {
-    const { idUsers } = req.params;
+const findById = async (req, res) => {
+    try {
+        const { idUsers } = req.params;
+        const user = await ModelUsers.findById(idUsers);
 
-    ModelUsers
-    .findById(idUsers)
-        .then(user => {
-            res.status(200).json(user);
-            console.log("Usuario encontrado:",  user);
-        })
-        .catch(error => {
-            console.log("Error al encontrar el usuario:", error);
-            res.status(400).json({ message: 'Error al encontrar los usuarios', error });
-        });
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        
+        const decryptedUser = {
+            ...user, 
+            address: decrypt(user.address),
+            phone_num: decrypt(user.phone_num),
+        }
+        res.status(200).json(decryptedUser);
+    } catch (error) {
+        res.status(400).json({ message: 'Error al encontrar el usuario', error });
+        console.log('Error en findById:', error);   
+    }
 };
-
 
 module.exports = {
     createUser,
