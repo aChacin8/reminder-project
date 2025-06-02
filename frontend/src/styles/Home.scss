@@ -13,10 +13,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url("@/img/reminder.png");
+        background-image: url("@/img/backgroundHome.png");
         background-size: cover;
         background-position: center;
-        opacity: 0.5; // Ajusta el nivel de transparencia
         z-index: -1; // Envía la imagen detrás del contenido del body
     }
 

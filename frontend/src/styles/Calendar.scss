@@ -1,31 +1,45 @@
 .calendar {
-    width: 60%;
-    margin: 2rem;
-}
-
-.cardCalendar {
-    width: 30%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 900px;
     margin: 2rem auto;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    padding: 1rem;
+    background: #ffffffc9;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    @media (max-width: 768px) {
+        width: 95%;
+        padding: 0.5rem;
+    }
+}
+.cardCalendar {
+    background: linear-gradient(to top left, #dbeafe, #eff6ff);
+    padding: 1.5rem;
+    border: 2px solid #e0e7ff;
 
     &__form-group {
-        margin-bottom: 1rem;
-
         label {
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            color: #1e3a8a;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            margin-top: 0.3rem;
         }
     }
 
     &__btn {
-        display: block;
-        width: 100%;
-        margin-top: 1rem;
-        padding: 0.75rem;
-        font-weight: bold;
-        border-radius: 10px;
+        background-color: #2563eb;
+        color: white;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #1d4ed8;
+        }
     }
 }
+
