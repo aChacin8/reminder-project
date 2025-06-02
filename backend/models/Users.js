@@ -27,13 +27,10 @@ const findEmail = (email) => {
 }
 
 const findById = (idUsers) => {
-      console.log("Consultando usuario con id:", idUsers);  // Verifica el valor de `idUsers`
-
     return knex
         .select('*')
         .from('users')
         .where('id_users', idUsers)
-        .first()
 }
 
 const findToken = (token) => {
