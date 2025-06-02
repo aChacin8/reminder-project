@@ -1,11 +1,16 @@
 # Taskly
 ## Introducción
-Taskly es una aplicación web diseñada para la gestión de eventos personales. Permite a los usuarios registrarse, iniciar sesión de forma segura mediante JWT,  hashing de datos y cifrado de contraseñas, además permite crear eventos únicos asociados a su cuenta. Este sistema ha sido desarrollado con el objetivo de mantener la seguridad, integridad y personalización en el manejo de eventos personales, garantizando una experiencia ágil y confiable.
+Taskly es una aplicación web diseñada para la gestión de eventos personales. Permite a los usuarios registrarse, iniciar sesión de forma segura mediante JWT,  encriptacion de datos, hashing de token y cifrado de contraseñas, además permite crear eventos únicos asociados a su cuenta. Este sistema ha sido desarrollado con el objetivo de mantener la seguridad, integridad y personalización en el manejo de eventos personales, garantizando una experiencia ágil y confiable.
 
 ## Instalación 
 `
 git clone https://github.com/aChacin8/reminder-project.git
 `
+`
+npm i //Para instalar las dependencias 
+`
+** ⚠️ Advertencia**
+Si no cuentas con los archivos ".env" no podrás tener acceso a la página, ya que hacemos uso de variables de entorno para filtrar datos sensibles 
 
 #### Migracion de Base de Datos 
 `
