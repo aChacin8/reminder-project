@@ -4,16 +4,17 @@
     const authController = require('../controllers/authController')
     const verifyToken = require('../middlewares/authMiddleware')
 
-    userRoutes.post('/users', userController.createUser) // Crear un nuevo usuario
-    userRoutes.get('/users', userController.viewAllUsers) // Visualizar todos los usuarios
+    userRoutes.post('/users', userController.createUser) 
+    userRoutes.get('/users', userController.viewAllUsers) 
     userRoutes.get('/users/:idUsers', verifyToken, userController.findById)
+    userRoutes.patch('/users/:idUsers', verifyToken, userController.updateUser)
 
-    userRoutes.post('/register', authController.registerUser) // Registrar un nuevo usuario
-    userRoutes.post('/login',authController.loginUser) // Iniciar sesión
+    userRoutes.post('/register', authController.registerUser)
+    userRoutes.post('/login',authController.loginUser) 
 
-    userRoutes.get('/token', authController.getTokenByEmail) // Obtener el token por email
+    userRoutes.get('/token', authController.getTokenByEmail) 
     userRoutes.get('/verify-token', verifyToken, (req, res) => {
-        res.status(200).json({ message: 'Token válido' }) // Verificar el token
+        res.status(200).json({ message: 'Token válido' }) 
     }) // Verificar el token
 
     module.exports = userRoutes
