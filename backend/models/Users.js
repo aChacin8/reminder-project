@@ -27,10 +27,27 @@ const findEmail = (email) => {
 }
 
 const findById = (idUsers) => {
-    return knex
-    .from('users')
-    .where('id_users', idUsers)
-    .first()
+    return knex ('users')
+        .where('id_users', idUsers)
+        .first()
+}
+
+const updateUser = (idUsers, bodyUser) => {
+    console.log('Actualizando usuario con ID:', idUsers);
+    console.log('Datos a actualizar:', bodyUser);
+    return knex('users')
+        .where('id_users', idUsers)
+        .update(bodyUser)
+        .then(userUpdated => {
+            console.log('Filas actualizadas:', userUpdated); // <--- esto es importante
+            return knex('users')
+                .where('id_users', idUsers)
+                .first();
+        })
+        .catch(error => {
+            console.error('Error al actualizar el usuario:', error);
+            throw error;
+        });
 }
 
 const findToken = (token) => {
@@ -62,6 +79,7 @@ module.exports = {
     viewAll,
     findEmail,
     findById,
+    updateUser,
     findToken,
     updateToken
 }
