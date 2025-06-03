@@ -1,12 +1,14 @@
 import Header from '@/components/Header';
 import EventsComponent from '@/components/events/EventsComponent';
-const MyEvents = () => {
+import '@/styles/MyEvents.scss'
 
+
+const MyEvents = () => {
     return (
-        <>
+        <div className="my-events">
             <Header/>
-            <EventsComponent/>      
-        </>
+            <EventsComponent/>
+        </div>
     );
 }
 

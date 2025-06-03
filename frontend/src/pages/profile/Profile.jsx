@@ -3,6 +3,8 @@ import { useAuthContext } from '@/hooks/useAuthContext';
 import { useEffect } from "react";
 import Header from '@/components/Header'
 import UpdateProfileComponent from "@/components/profile/UpdateProfileComponent";
+import '@/styles/profile.scss'
+
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -45,6 +47,7 @@ const Profile = () => {
     return (
         <>
             <Header />
+            <div className="profile">
             <Card className="userCard">
                 <Card.Body className="userCard__body">
                     <Card.Title>Perfil</Card.Title>
@@ -66,6 +69,7 @@ const Profile = () => {
                 </Card.Body>
             </Card>
             <UpdateProfileComponent/>
+            </div>
         </>
     );
 };
