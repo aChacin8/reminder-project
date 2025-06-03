@@ -15,7 +15,10 @@
 .cardCalendar {
     background: linear-gradient(to top left, #dbeafe, #eff6ff);
     padding: 1.5rem;
-    border: 2px solid #e0e7ff;
+    border-radius: 2rem;
+    border: 5px solid #e0e7ff;
+    margin-top: 33px;
+    margin-right: 6px;
 
     &__form-group {
         label {
