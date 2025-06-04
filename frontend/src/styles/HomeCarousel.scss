@@ -1,0 +1,22 @@
+.home__carousel {
+  width: 40%; // Puedes ajustar este ancho
+  height: 80vh; // Altura relativa a la ventana
+  float: right; // Mueve el carrusel al lado derecho
+  margin: 2rem; // Espaciado del borde
+
+  .carousel,
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; // Para que la imagen se ajuste sin deformarse
+    border-radius: 12px;
+  }
+
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+}
