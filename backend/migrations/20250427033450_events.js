@@ -16,6 +16,7 @@ exports.up = function(knex) {
             table.dateTime('event_start_date').notNullable()
             table.dateTime('event_end_date').notNullable()
             table.string('color').defaultTo('#3788d8')
+            table.boolean('notified').defaultTo(false)
             table.boolean('important').defaultTo(false)
             table.boolean('completed').defaultTo(false)
             table.boolean('active').defaultTo(true)
