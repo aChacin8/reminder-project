@@ -26,7 +26,7 @@ const initWebSocket = (server) => {
     });
 
     // Cron para verificar eventos que expiran en los siguientes 15 minutos
-    cron.schedule('*/15 * * * *', async () => {
+    cron.schedule('* * * * *', async () => {
         console.log('Verificando eventos por vencerse...');
 
         const now = new Date();
@@ -35,18 +35,23 @@ const initWebSocket = (server) => {
 
         try {
             const events = await knex('events')
-                .whereBetween('event_end_date', [now, in15mins])
-                if (events.length === 0) {
-                console.log('No hay eventos por vencer');
+                .whereBetween('event_start_date', [now, in15mins])
+                .andWhere('active', true)
+                .andWhere('notified', false)
+                if (events.length === 0 ) {
+                console.log('No se encontraron eventos por vencerse sin notificar.');
                 } else {
-                    events.forEach((event) => {
+                    await Promise.all (events.map(async (event) => {
                     console.log(`Enviando notificación a sala ${event.id_users}`);
                     io.to(event.id_users.toString()).emit('event-expiring', {
-                        message: `El evento "${event.event_name}" está por vencer (En menos de 15 minutos). El dia ${new Date(event.event_end_date).toLocaleString()}`, 
+                        message: `El evento "${event.event_name}" está por iniciar (En menos de 15 minutos). El dia ${new Date(event.event_start_date).toLocaleString()}`, 
                         eventId: event.id_events,
                         userId: event.id_users
                     });
-                });
+                    await knex('events')
+                        .where('id_events', event.id_events)
+                        .update('notified', true); // Marca el evento como notificado
+                    }));
             }
         } catch (error) {
             console.error('Error al verificar eventos por vencerse:', error);
