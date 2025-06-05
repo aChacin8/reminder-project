@@ -9,7 +9,8 @@ const DeleteEventsComponent = ({event}) => {
     const { token } = useAuthContext();
 
     const handleDelete = async () => {
-        if (!window.confirm('¿Estás seguro de que deseas eliminar este evento?'));
+        const confirmDelete= window.confirm('¿Estás seguro de que deseas eliminar este evento?');
+        if(!confirmDelete) return;
 
         try {
             const response = await fetch(`${API_URL}/taskly/events/${event.id_events}/hard`, {
