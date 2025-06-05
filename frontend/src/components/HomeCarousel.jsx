@@ -1,7 +1,7 @@
 // components/home/HomeCarousel.jsx
 import { Carousel } from 'react-bootstrap';
 import img1 from '@/img/carrusel1.jpeg';
-import img2 from '@/img/carrusel2.jpg';
+import img2 from '@/img/carrusel2.jpeg';
 import '@/styles/HomeCarousel.scss'
 const HomeCarousel = () => {
   return (
