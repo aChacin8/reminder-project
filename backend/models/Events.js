@@ -26,7 +26,6 @@ const updateEvent = async (idEvents, bodyEvents)=> {
         .where('id_events', idEvents)
         .update(bodyEvents)
         .andWhere('active', true)
-        .andWhere ('notified', false)
 }
 
 const softDeleteEvent = async (idEvents)=> {
