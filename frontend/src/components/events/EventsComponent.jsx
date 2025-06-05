@@ -35,6 +35,7 @@ const EventsComponent = () => {
         const handleEdit = (event) => {
         setSelectedEvent(event);
         setShowModal(true);
+
         }
 
     return (
@@ -81,8 +82,6 @@ const EventsComponent = () => {
             </Card>
             <UpdateEventsComponent/>
         </>
-        
-        
     );
 }
 

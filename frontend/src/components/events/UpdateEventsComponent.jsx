@@ -4,7 +4,6 @@ import { useAuthContext } from '@/hooks/useAuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo .env
 
-
 const UpdateEventsComponent = () => {
     
     const { setEvents, selectedEvent, setSelectedEvent, showModal, setShowModal} = useEventContext();
@@ -24,6 +23,7 @@ const UpdateEventsComponent = () => {
                 setEvents(result);
                 setShowModal(false);
                 alert('Evento actualizado correctamente');
+                window.location.reload(); // Recargar la página para reflejar los cambios
             } catch (error) {
                 console.error('Error actualizar eventos:', error);
             }
