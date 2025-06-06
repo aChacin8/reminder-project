@@ -1,10 +1,6 @@
 .reminder {
     position: relative; 
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
 
-    
     &::before {
         content: ""; // Necesario para que ::before funcione
         position: fixed;
@@ -18,4 +14,14 @@
         z-index: -1; // Envía la imagen detrás del contenido del body
     }
 
+    &__components {
+        height: 53rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+        @media (max-width: 768px) {
+            width: 95%;
+            padding: 0.5rem;
+        }
+    }
 }
