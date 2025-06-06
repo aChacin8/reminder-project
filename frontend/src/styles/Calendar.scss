@@ -19,6 +19,7 @@
     border: 5px solid #e0e7ff;
     margin-top: 33px;
     margin-right: 6px;
+    margin-bottom: 2rem;
 
     &__form-group {
         label {
@@ -34,7 +35,10 @@
             margin-top: 0.3rem;
         }
     }
-
+    &__group-color {
+        margin: auto;
+        margin-bottom: 4rem;
+    }
     &__btn {
         background-color: #2563eb;
         color: white;
