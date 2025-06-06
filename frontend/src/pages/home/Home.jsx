@@ -1,8 +1,8 @@
-import InfoComponent from '@/components/InfoComponent';
 import '@/styles/Home.scss';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer'; // <- Importamos el Footer
-import HomeCarousel from '@/components/HomeCarousel';
+import InfoComponent from '@/components/home/InfoComponent';
+import HomeCarousel from '@/components/home/HomeCarousel';
+import Footer from '@/components/home/Footer'; 
 
 
 function Home () {
@@ -13,8 +13,7 @@ function Home () {
       <div className='home__components'>
         <InfoComponent />
       </div>
-
-      <Footer /> {/* <- Insertamos el Footer aquí */}
+      <Footer />
     </div>
   );
 }
