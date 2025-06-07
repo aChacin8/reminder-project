@@ -3,7 +3,7 @@ import { useAuthContext } from '@/hooks/useAuthContext';
 import { useEffect } from "react";
 import Header from '@/components/Header'
 import UpdateProfileComponent from "@/components/profile/UpdateProfileComponent";
-import '@/styles/profile.scss'
+import '@/styles/Profile.scss'
 
 
 const API_URL = import.meta.env.VITE_API_URL;
