@@ -66,7 +66,7 @@ const Login = () => {
                             type='password'
                             name='password'
                             id='login__password'
-                            pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$' // Al menos 8 caracteres, al menos una letra y un número
+                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-]{8,}$" 
                             className='mb-5'
                             placeholder='Password'
                             required

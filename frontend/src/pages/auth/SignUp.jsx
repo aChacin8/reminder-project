@@ -37,6 +37,7 @@ const SingUp = () => {
 
     return (
         <>
+        <div className='signup'>
         <Header/>
         <Card style={{ width: '25rem' }} className='justify-content-center mx-auto mt-5' id='signup'>
             <Card.Body className='text-center' id='signup__body'>
@@ -137,12 +138,18 @@ const SingUp = () => {
                         <Form.Control
                             type='password'
                             name='password'
-                            pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$' // Al menos 8 caracteres, al menos una letra y un número
+                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-]{8,}$" 
                             id='signup__password'
                             placeholder='Ingresa una Contraseña'
                             required
                             {...register('password' , {required: true})}
                         />
+                        <ul style={{ fontSize: '0.8rem', color: 'gray', marginTop: '1rem' }}>
+                            <li>Debe tener al menos 8 caracteres</li>
+                            <li>Debe contener al menos una letra</li>
+                            <li>Debe contener al menos un número</li>
+                            <li>Debe contener al menos un caracter especial</li>
+                        </ul>
                         <p>{errors.password?.message}</p>
                     </Form.Group>
 
@@ -157,6 +164,8 @@ const SingUp = () => {
                 </Form>
             </Card.Body>
         </Card>
+        </div>
+        
         </>
     );
 }
