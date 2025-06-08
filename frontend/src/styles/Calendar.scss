@@ -50,3 +50,8 @@
     }
 }
 
+.eventCard {
+     max-height: 900px; // o una altura que necesites
+    overflow-y: auto;
+    scrollbar-width: thin; // para navegadores compatibles (como Firefox)
+}

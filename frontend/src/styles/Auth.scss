@@ -3,7 +3,11 @@ $border: rgb(67, 135, 224);
 @mixin border () {
     border-color:$border;
 }
-
+.signup {
+    max-height: 900px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
 #signup, #login {
     @include border();
     
