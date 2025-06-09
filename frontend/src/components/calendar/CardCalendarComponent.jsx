@@ -35,17 +35,16 @@ const CardCalendarComponent = () => {
                 })  //Se envian los datos al servidor
             });
 
-            const contentType = response.headers.get('Content-Type');
             if (contentType && contentType.includes('application/json')) {
                 const result = await response.json();
                 setEvents([...events, result]); //Actualizar el contexto de los eventos
                 alert('Evento creado con éxito');
+                window.location.reload();
             } else {
                 console.error('La respuesta no es un JSON válido');
             }
-
-
-        } catch (error) {
+        }
+        catch (error) {
             console.log(error);
             alert('Hubo un error al crear el evento');
         }

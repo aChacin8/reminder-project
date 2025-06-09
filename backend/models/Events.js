@@ -21,6 +21,16 @@ const findById = async (idEvents) => {
         .where('id_events', idEvents)
 }
 
+const findByName = async (eventName, idUsers) => {
+    return knex('events')
+        .select('*')
+        .where('event_name', eventName)
+        .orWhere('event_start_date', eventName)
+        .orWhere('event_end_date', eventName)
+        .andWhere('id_users', idUsers)
+        .andWhere('active', true);
+}
+
 const updateEvent = async (idEvents, bodyEvents)=> {
     return knex('events')
         .where('id_events', idEvents)
