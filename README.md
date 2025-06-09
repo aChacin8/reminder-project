@@ -44,11 +44,12 @@ npm start
 Crea un nuevo usuario con la siguiente estructura:
 
 > {
-  "name": "Juan Pérez",
-  "email": "juan@gmail.com",
-  "password": "contraseña1*",
-  "address": "Calle Falsa 123",
-  "phone_num": "1234567890"
+  "first_name": "Juan",
+> "last_name": "Perez",
+> "email": "juan@gmail.com",
+> "password": "contraseña1*",
+> "address": "Calle Falsa 123",
+> "phone_num": "1234567890"
 }
 #### La contraseña debe ser de minimo 8 caracteres, incluyendo al menos un número y un carácter especial.
 
