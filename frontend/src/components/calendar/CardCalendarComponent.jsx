@@ -35,6 +35,8 @@ const CardCalendarComponent = () => {
                 })  //Se envian los datos al servidor
             });
 
+            const contentType = response.headers.get('Content-Type');
+
             if (contentType && contentType.includes('application/json')) {
                 const result = await response.json();
                 setEvents([...events, result]); //Actualizar el contexto de los eventos
