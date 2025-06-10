@@ -74,7 +74,6 @@ const Login = () => {
                                     required: 'La contraseña es requerida',
                                     pattern: {
                                         value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{8,}$/,
-                                        message: 'La contraseña no cumple con los requisitos'                            
                                     }
                                 })}
                         />
