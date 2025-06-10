@@ -11,7 +11,7 @@ exports.up = function(knex) {
             table.string('last_name').notNullable()
             table.enum('gender', ['H', 'M', 'O']).notNullable()
             table.string('address')
-            table.string('phone_num')
+            table.string('phone_num').unique()
             table.string('email').notNullable().unique()
             table.string('password').notNullable()
             table.text('token').notNullable()
