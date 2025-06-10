@@ -1,5 +1,6 @@
 
 import FullCalendar from '@fullcalendar/react';
+import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'
@@ -50,6 +51,8 @@ const CalendarComponent = () => {
     return (
         <div className='calendar'>
             <FullCalendar
+                locales={[esLocale]}
+                locale="es"
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]} //llamamos los plugins del calendario, para realizar las operaciones necesarias
                 initialView={'dayGridMonth'} //Esta es la visualización inicial de la pagina (por mes).
                 headerToolbar={{
