@@ -112,8 +112,16 @@ const SingUp = () => {
                                 id='signup__phone'
                                 className='m-3'
                                 name='phone_num'
+                                pattern="^\d{10}$"
                                 placeholder='Ingresa tu numero telefonico'
-                                {...register('phone_num')}
+                                {...register('phone_num', 
+                                    {
+                                        pattern: {
+                                            value: /^\d{10}$/,
+                                            message: 'El número de teléfono debe tener 10 dígitos'
+                                        }
+                                    }
+                                )}
                             />
                             <p>{errors.phone_number?.message}</p>
                         </Form.Group>
