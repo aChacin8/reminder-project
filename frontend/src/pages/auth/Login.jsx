@@ -66,11 +66,17 @@ const Login = () => {
                             type='password'
                             name='password'
                             id='login__password'
-                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':&quot;\\\\|,.<>\/?`~\-]{8,}$" 
                             className='mb-5'
                             placeholder='Password'
                             required
-                            {...register('password' , {required: true})}
+                            {...register('password' , 
+                                {
+                                    required: 'La contraseña es requerida',
+                                    pattern: {
+                                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{8,}$/,
+                                        message: 'La contraseña no cumple con los requisitos'                            
+                                    }
+                                })}
                         />
                         <p>{errors.password?.message}</p>
                     </Form.Group>
