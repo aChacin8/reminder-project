@@ -44,21 +44,20 @@
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log('Login request:', { email, password });
 
     try {
-        // Buscar al usuario por email tal como lo recibe el cliente (sin hash)
         const user = await ModelUsers.findEmail(email);
+        console.log(user);
+        
         if (!user) {
             return res.status(401).json({ message: 'Credenciales inválidas' });
         }
 
-        // Verifica la contraseña con bcrypt
-        const validPassword = await bcrypt.compare(password, user.password);
+const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
-
-        // Generar un nuevo token JWT
         const token = jwt.sign(
             {
                 id_users: user.id_users,
@@ -68,15 +67,12 @@ const loginUser = async (req, res) => {
             { expiresIn: '8h' }
         );
 
-        // Guardar el token hasheado en la base de datos
         const hashedToken = hashToken(token);
         await ModelUsers.updateToken(user.id_users, hashedToken);
 
-        // Desencriptar campos sensibles
         const decryptedAddress = user.address ? decrypt(user.address) : '';
         const decryptedPhone = user.phone_num ? decrypt(user.phone_num) : '';
 
-        // Enviar respuesta al frontend
         res.status(200).json({
             message: 'Inicio de sesión exitoso',
             token,

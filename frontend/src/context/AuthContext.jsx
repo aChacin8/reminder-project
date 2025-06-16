@@ -16,25 +16,26 @@
         const login = (data) => {
             const token = typeof data === 'string' ? data : data.token;
             sessionStorage.setItem('token', token);
-            setToken(token); //Almacena el token en el estado
-            const user = jwtDecode(token); //Decodifica el token
-            setUserPayload (user); //Almacena el payload decodificado
-            setIsAuth(true); //Actualiza el estado de autenticacion a verdadero
+            setToken(token); 
+            const user = jwtDecode(token); 
+            setUserPayload (user); 
+            setIsAuth(true); 
         }
 
         const logout = () => {
-            setUserPayload (null); //Borra el payload decodificado
-            setIsAuth(false); //Actualiza el estado de autenticacion a falso
-            setToken(null); //Borra el token del estado
+            sessionStorage.removeItem('token', token)
+            setUserPayload (null); 
+            setIsAuth(false); 
+            setToken(null); 
         }
 
         useEffect(() => {
-            const storedToken = sessionStorage.getItem('token'); //Obtiene el token del sessionStorage
+            const storedToken = sessionStorage.getItem('token'); 
             if (storedToken) {
-                setToken(storedToken); //Almacena el token en el estado
-                const user = jwtDecode(storedToken); //Decodifica el token
-                setUserPayload(user); //Almacena el payload decodificado
-                setIsAuth(true); //Actualiza el estado de autenticacion a verdadero
+                setToken(storedToken); 
+                const user = jwtDecode(storedToken); 
+                setUserPayload(user); 
+                setIsAuth(true); 
             }
         }, []);
 
@@ -46,7 +47,7 @@
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}` // Agrega el token al encabezado de autorización
+                            'Authorization': `Bearer ${token}` 
                         }
                     });
                     if (!response.ok) {
@@ -54,15 +55,15 @@
                     }
                     
                     const result = await response.json();
-                    console.log('Validacion:', result); // Muestra el token obtenido
+                    console.log('Validacion:', result); 
                 } catch (error) {
                     console.error('Error al obtener el token:', error);
                 }
             }
             if (token) {
-                fetchToken(); //Llama a la funcion para obtener el token
+                fetchToken(); 
             }
-        }, [token]); //Dependencia del token
+        }, [token]); 
         
         const data = {
             userPayload,

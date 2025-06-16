@@ -10,11 +10,11 @@ const API_URL = import.meta.env.VITE_API_URL; // URL de la API desde el archivo 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const {login} = useAuthContext(); // Consumir el contexto de autenticación
+    const { login } = useAuthContext(); // Consumir el contexto de autenticación
 
     const onSubmit = async (data) => {
         try {
-            const response = await fetch (`${API_URL}/taskly/login`, {
+            const response = await fetch(`${API_URL}/taskly/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,8 +24,8 @@ const Login = () => {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status} - ${result.message}`);
-            } // Verifica si la respuesta es exitosa
+                alert(result.message || 'Error en la autenticación');
+            } 
             if (result.token) {
                 login(result.token);
                 alert('Usuario autenticado con éxito');
@@ -34,74 +34,76 @@ const Login = () => {
             } else {
                 console.error("Token inválido o ausente:", result);
             }
+
         } catch (error) {
             console.error(error);
         }
     }
-    
+
 
     return (
         <>
-        <Header/>
-        <Card style={{ width: '22rem', paddingBlock: '6rem' }} className='justify-content-center mx-auto' id='login'>
-            <Card.Body className='text-center' >
-                <Card.Title className='mb-5'>Inicio de Sesion</Card.Title>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <Form.Group>
-                        <Form.Label>Email:</Form.Label>
-                        <Form.Control
-                            type='email'
-                            name='email'
-                            id='login__email'
-                            className='mb-4'
-                            placeholder='name@example.com'
-                            {...register('email' , {required: true} )}
-                        />
-                        <p>{errors.email?.message}</p>
-                    </Form.Group>
+            <Header />
+            <Card style={{ width: '22rem', paddingBlock: '6rem' }} className='justify-content-center mx-auto' id='login'>
+                <Card.Body className='text-center' >
+                    <Card.Title className='mb-5'>Inicio de Sesion</Card.Title>
+                    <Form onSubmit={handleSubmit(onSubmit)}>
+                        <Form.Group>
+                            <Form.Label>Email:</Form.Label>
+                            <Form.Control
+                                type='email'
+                                name='email'
+                                id='login__email'
+                                className='mb-4'
+                                placeholder='name@example.com'
+                                {...register('email', { required: true })}
+                            />
+                            <p>{errors.email?.message}</p>
+                        </Form.Group>
 
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type='password'
-                            name='password'
-                            id='login__password'
-                            className='mb-5'
-                            placeholder='Password'
-                            required
-                            {...register('password' , 
-                                {
-                                    required: 'La contraseña es requerida',
-                                    pattern: {
-                                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{8,}$/,
-                                    }
-                                })}
-                        />
-                        <p>{errors.password?.message}</p>
-                    </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                type='password'
+                                name='password'
+                                id='login__password'
+                                className='mb-5'
+                                placeholder='Password'
+                                required
+                                {...register('password',
+                                    {
+                                        required: 'La contraseña es requerida',
+                                        pattern: {
+                                            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{8,}$/,
+                                            message: 'Contraseña no cumple los parametros requeridos'
+                                        }
+                                    })}
+                            />
+                            <p>{errors.password?.message}</p>
+                        </Form.Group>
 
-                    <Button 
-                        variant='success' 
-                        type='submit' 
-                        className='me-2' 
-                        id='login__btn'
+                        <Button
+                            variant='success'
+                            type='submit'
+                            className='me-2'
+                            id='login__btn'
                         >
                             Iniciar Sesion
-                    </Button>
-                    
-                    <NavLink to='/SignUp'>
-                        <Button    
-                            variant='primary' 
-                            type='button' 
-                            className='me-2' 
-                            id='signup__btn'
+                        </Button>
+
+                        <NavLink to='/SignUp'>
+                            <Button
+                                variant='primary'
+                                type='button'
+                                className='me-2'
+                                id='signup__btn'
                             >
                                 Registrarse
-                        </Button>
-                    </NavLink>
-                </Form>
-            </Card.Body>
-        </Card>
+                            </Button>
+                        </NavLink>
+                    </Form>
+                </Card.Body>
+            </Card>
         </>
     );
 }
