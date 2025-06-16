@@ -16,5 +16,14 @@
         background-position: center;
         z-index: -1; // Envía la imagen detrás del contenido del body
     }
+}
 
+.eventCard {
+    margin-top: 2rem;
+
+    &__list{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }

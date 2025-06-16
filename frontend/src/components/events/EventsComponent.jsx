@@ -49,7 +49,7 @@ const EventsComponent = () => {
                     <ul className='eventCard__list'>
                         {Array.isArray(events) && events.length > 0 ? (
                             events.map((event) => (
-                                <li key={event.id_events} className='mb-3' style={{ listStyle: 'none' }}>
+                                <li key={event.id_events} className='m-3' style={{ listStyle: 'none' }}>
                                     <Card>
                                         <Card.Body className='eventCard__body'> 
                                             <Card.Title>{event.event_name}</Card.Title>

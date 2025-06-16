@@ -7,7 +7,9 @@ const MyEvents = () => {
     return (
         <div className="my-events">
             <Header/>
-            <EventsComponent/>
+            <div className='my-events__component'>
+                <EventsComponent/>
+            </div>
         </div>
     );
 }

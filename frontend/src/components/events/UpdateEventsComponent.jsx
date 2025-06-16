@@ -38,7 +38,7 @@ const UpdateEventsComponent = () => {
     }
 
     return (
-        <Modal show={showModal} onHide={()=> setShowModal(false)}>
+        <Modal style={{marginTop: '8rem'}} show={showModal} onHide={()=> setShowModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>Actualizar Evento</Modal.Title>
             </Modal.Header>
