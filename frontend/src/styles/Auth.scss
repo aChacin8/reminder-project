@@ -5,14 +5,14 @@ $border: rgb(67, 135, 224);
 }
 .signup {
     max-height: 900px;
-    overflow-y: auto;
-    scrollbar-width: thin;
 }
+
 #signup, #login {
     @include border();
     
-    margin-top: 10rem;
+    margin-top: 5rem;
     &__tittle{
+        margin-top: 2rem;
         font-family: "Roboto Slab", serif;
         font-size: 2rem;
     }
