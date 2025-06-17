@@ -31,11 +31,11 @@ const initWebSocket = (server) => {
 
         const now = new Date();
         // const in24hrs = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-        const in15mins = new Date(now.getTime() + 15 * 60 * 1000);
+        const in5mins = new Date(now.getTime() + 5 * 60 * 1000);
 
         try {
             const events = await knex('events')
-                .whereBetween('event_start_date', [now, in15mins])
+                .whereBetween('event_start_date', [now, in5mins])
                 .andWhere('active', true)
                 .andWhere('notified', false)
                 if (events.length === 0 ) {
@@ -44,7 +44,7 @@ const initWebSocket = (server) => {
                     await Promise.all (events.map(async (event) => {
                     console.log(`Enviando notificación a sala ${event.id_users}`);
                     io.to(event.id_users.toString()).emit('event-expiring', {
-                        message: `El evento "${event.event_name}" está por iniciar (En menos de 15 minutos). El dia ${new Date(event.event_start_date).toLocaleString()}`, 
+                        message: `El evento "${event.event_name}" está por iniciar (En menos de 5 minutos). El dia ${new Date(event.event_start_date).toLocaleString()}`, 
                         eventId: event.id_events,
                         userId: event.id_users
                     });
