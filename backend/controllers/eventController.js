@@ -64,7 +64,7 @@ const getEventById = async (req, res) => {
 const updateEvent = async (req, res) => {
     try {
         const { id_events } = req.params; 
-        const { event_name, event_description, event_start_date, event_end_date, ...rest } = req.body; 
+        const { event_name, event_description, event_start_date, event_end_date, color, ...rest } = req.body; 
 
         const existingEvent = await ModelEvent.findById(id_events); 
 
@@ -89,12 +89,13 @@ const updateEvent = async (req, res) => {
         const formattedEndDate = formatDateForMySQL(event_end_date);
 
         const { created_at, ...dataToUpdate } = {
-            ...rest,
             event_name,
             event_description,
             event_start_date: formattedStartDate,
             event_end_date: formattedEndDate,
-            id_users: req.user.id_users
+            id_users: req.user.id_users,
+            notified:false,
+            color
         };
 
         const event = await ModelEvent.updateEvent(id_events, dataToUpdate);
