@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 
-const { db, initializeDB } = require('./db'); // Archivo db.js con Knex + migraciones/seeds
+const { db, initializeDB } = require('./config'); // Archivo db.js con Knex + migraciones/seeds
 const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventsRoutes');
 const deleteExpiredEvents = require('./cron/deleteExpiredEvents'); // Cron
