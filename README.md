@@ -1,6 +1,6 @@
-# Taskly
+# Reminder-E
 ## Introducción
-Taskly es una aplicación web diseñada para la gestión de eventos personales. Permite a los usuarios registrarse, iniciar sesión de forma segura mediante JWT,  encriptacion de datos, hashing de token y cifrado de contraseñas, además permite crear eventos únicos asociados a su cuenta. Este sistema ha sido desarrollado con el objetivo de mantener la seguridad, integridad y personalización en el manejo de eventos personales, garantizando una experiencia ágil y confiable.
+Reminder-E es una aplicación web diseñada para la gestión de eventos personales. Permite a los usuarios registrarse, iniciar sesión de forma segura mediante JWT,  encriptacion de datos, hashing de token y cifrado de contraseñas, además permite crear eventos únicos asociados a su cuenta. Este sistema ha sido desarrollado con el objetivo de mantener la seguridad, integridad y personalización en el manejo de eventos personales, garantizando una experiencia ágil y confiable.
 
 ## Instalación 
 `
@@ -27,7 +27,7 @@ npm start
 `
 ## Autenticación y Seguridad
 
-- Taskly implementa hashing de datos, evitando problemas de vulnerabilidad con datos sensibles, además encriptamiento de la contraseña del usuario.
+- reminder-e implementa hashing de datos, evitando problemas de vulnerabilidad con datos sensibles, además encriptamiento de la contraseña del usuario.
 
 - Implementa autenticación basda en tokens JWT. , asociar eventos unicos al usuario ya atenticado, 
    - Permitiendo validar sesiones de usuario  sin necesidad de almacenamiento persistente de contraseñas.
