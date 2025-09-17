@@ -5,7 +5,7 @@
     height: 100vh;
     
     &::before {
-        content: ""; // Necesario para que ::before funcione
+        content: ""; 
         position: fixed;
         top: 0;
         left: 0;
@@ -14,7 +14,7 @@
         background-image: url("@/img/backgroundHome.png");
         background-size: cover;
         background-position: center;
-        z-index: -1; // Envía la imagen detrás del contenido del body
+        z-index: -1; 
     }
 
     &__components {
