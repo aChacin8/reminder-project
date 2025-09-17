@@ -1,4 +1,4 @@
-process.loadEnvFile() // Carga las varibles de entorno del archivo .env
+require('dotenv').config();
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */

@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-process.loadEnvFile() // Carga las varibles de entorno del archivo .env
+require('dotenv').config();
 
 const hashEmail = (email) => {
     return crypto.createHash('sha256').update(email).digest('hex'); // Encriptar el email

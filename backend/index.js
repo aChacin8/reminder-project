@@ -1,4 +1,4 @@
-process.loadEnvFile(); // Carga variables de entorno del .env
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
