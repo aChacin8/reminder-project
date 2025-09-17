@@ -17,48 +17,33 @@ $hover-color: #124c97;
     flex-wrap: wrap;
 
     &__logo {
-        width: 6rem;
-        border-radius: 20px;
+    width: 4.5rem; /* más pequeño */
+    border-radius: 12px;
+
+    @media (max-width: 768px) {
+      width: 3.5rem; /* aún más pequeño en móvil */
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* reducimos separación */
+
+    @media (max-width: 768px) {
+      gap: 0.5rem; /* menos espacio en móvil */
+      font-size: 0.9rem; /* texto más compacto */
     }
 
-    &__nav {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
+    &--ref {
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #273447;
 
-        @media (max-width: 768px) {
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
-            padding-top: 1rem;
-        }
-
-        &--ref {
-            position: relative;
-            text-decoration: none;
-            font-weight: bold;
-            color: #000;
-            transition: color 0.3s ease;
-
-            &::after {
-                content: '';
-                display: block;
-                height: 3px;
-                width: 0;
-                background: $hover-color;
-                transition: width 0.5s ease;
-                position: absolute;
-                bottom: -3px;
-            }
-
-            &:hover,
-            &.active {
-                color: $hover-color;
-
-                &::after {
-                    width: 100%;
-                }
-            }
-        }
+      @media (max-width: 768px) {
+        font-size: 0.85rem; /* texto más pequeño en móvil */
+      }
     }
+  }
 }
