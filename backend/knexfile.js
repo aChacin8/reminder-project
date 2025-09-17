@@ -44,11 +44,11 @@ module.exports = {
   },
 
   production: {
-    client: process.env.DB_CLIENT_DEV,
+    client: process.env.DB_CLIENT,
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      database: process.env.DB_CLIENT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
