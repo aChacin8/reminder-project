@@ -1,5 +1,23 @@
-const enviroment = process.env.NODE_ENV || 'development'; //Corre la variable de entorno, si no hay, corre en development
-const knex = require('knex'); //Importa la libreria knex
-const knexFile = require('./knexfile.js'); //Importa el archivo knexfile.js
+const knex = require('knex');
+const knexFile = require('./knexfile.js');
 
-module.exports = knex(knexFile[enviroment]); //Exporta la configuracion de knex, dependiendo del entorno
+const environment = process.env.NODE_ENV || 'development';
+const db = knex(knexFile[environment]);
+
+const initializeDB = async () => {
+  try {
+    console.log('Aplicando migraciones...');
+    await db.migrate.latest();
+    console.log('Migraciones aplicadas');
+
+    if (environment === 'production') {
+      console.log('Corriendo seeds...');
+      await db.seed.run();
+      console.log('Seeds aplicados');
+    }
+  } catch (err) {
+    console.error('Error al inicializar la base de datos:', err);
+  }
+};
+
+module.exports = { db, initializeDB };
