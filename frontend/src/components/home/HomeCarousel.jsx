@@ -10,7 +10,7 @@ const HomeCarousel = () => {
       <Carousel.Item>
         <img className="d-block w-100" src={img1} alt="Primera imagen" />
         <Carousel.Caption>
-          <h3>Bienvenido a Taskly</h3>
+          <h3>Bienvenido a ReminderE</h3>
           <p>Organiza tus tareas como nunca antes.</p>
         </Carousel.Caption>
       </Carousel.Item>

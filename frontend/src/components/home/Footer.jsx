@@ -6,7 +6,7 @@ import '@/styles/Footer.scss'; // Asegúrate de que la ruta esté bien desde don
 const Footer = () => {
   return (
     <footer className="sticky-footer">
-      <p>© {new Date().getFullYear()} Taskly - Todos los derechos reservados</p>
+      <p>© {new Date().getFullYear()} ReminderE - Todos los derechos reservados</p>
     </footer>
   );
 };

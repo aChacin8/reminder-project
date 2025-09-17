@@ -9,7 +9,7 @@ $hover-color: #124c97;
 .navbar {
     padding: 10px 1rem;
     border-radius: 10px;
-    background: linear-gradient(45deg, #fff, #2f7ef5);
+    background: linear-gradient(45deg, #1c235f, #2f7ef5);
 
     display: flex;
     justify-content: space-between;
@@ -17,7 +17,7 @@ $hover-color: #124c97;
     flex-wrap: wrap;
 
     &__logo {
-    width: 4.5rem; /* más pequeño */
+    width: 6rem;
     border-radius: 12px;
 
     @media (max-width: 768px) {

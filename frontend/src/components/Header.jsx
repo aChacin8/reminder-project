@@ -12,7 +12,7 @@ const Header = () => {
     return (
         <Navbar  className='navbar'>
             <Container>
-                <Navbar.Brand href='/'><img src="./src/img/logo.jpeg" alt="Logo Taskly" className='navbar__logo'/></Navbar.Brand>
+                <Navbar.Brand href='/'><img src="./src/img/logo.png" alt="Logo Taskly" className='navbar__logo'/></Navbar.Brand>
                 <Nav className='navbar__nav'>
                     {isAuth ? (
                         <>
