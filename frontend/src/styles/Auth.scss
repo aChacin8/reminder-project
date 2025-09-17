@@ -50,5 +50,18 @@ $border: rgb(67, 135, 224);
         }
     }
 
+    @media (max-width: 768px) {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 95%;
+    padding: 0.5rem;
+  }
+
     
 }

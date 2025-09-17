@@ -1,10 +1,11 @@
 import { Card, CardBody, CardText, Button, CardTitle} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import '@/styles/Home.scss'
 
 const InfoComponent = () =>{
     return (
         <>
-            <Card style={{width: '40rem'}}>
+            <Card >
                 <CardBody>
                     <CardTitle style={
                         {

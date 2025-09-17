@@ -11,7 +11,7 @@ function Home () {
       <Header />
       <HomeCarousel />
       <div className='home__components'>
-        <InfoComponent />
+        <InfoComponent className='home__card'/>
       </div>
       <Footer />
     </div>
