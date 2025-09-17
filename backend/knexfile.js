@@ -44,22 +44,19 @@ module.exports = {
   },
 
   production: {
-    client: process.env.DB_CLIENT,
-    connection: {
-      database: process.env.DB_CLIENT,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    },
-    seeds:{
-      directory: './data/seeds'
-    }
+  client: process.env.DB_CLIENT, 
+  connection: process.env.DB_URL,
+  pool: {
+    min: 2,
+    max: 10
+  },
+  migrations: {
+    tableName: 'knex_migrations'
+  },
+  seeds:{
+    directory: './data/seeds'
   }
+}
+
 
 };
