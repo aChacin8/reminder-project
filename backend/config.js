@@ -9,12 +9,6 @@ const initializeDB = async () => {
     console.log('Aplicando migraciones...');
     await db.migrate.latest();
     console.log('Migraciones aplicadas');
-
-    if (environment === 'production') {
-      console.log('Corriendo seeds...');
-      await db.seed.run();
-      console.log('Seeds aplicados');
-    }
   } catch (err) {
     console.error('Error al inicializar la base de datos:', err);
   }
