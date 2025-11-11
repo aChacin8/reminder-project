@@ -1,11 +1,12 @@
 const cron = require('node-cron');
-const knex = require('../config'); 
+const { db } = require('../config');
+
 const deleteExpiredEvents = async () => {
   cron.schedule('* * * * *', async () => { // se ejecuta cada minuto
     const now = new Date();
 
     try {
-      const deleted = await knex('events')
+      const deleted = await db('events')
         .where('event_end_date', '<', now)
         .del();
 

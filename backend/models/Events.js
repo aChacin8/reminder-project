@@ -1,4 +1,4 @@
-const knex = require ('../config')
+const { db } = require('../config');
 
 const createEvent = async (bodyEvent) => {
     const [id] = await knex('events')

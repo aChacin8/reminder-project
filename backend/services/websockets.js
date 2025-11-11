@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const knex = require('../config');
+const { db } = require('../config');
 const socketIo = require('socket.io');
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173'; // URL del frontend
@@ -34,7 +34,7 @@ const initWebSocket = (server) => {
         const in5mins = new Date(now.getTime() + 5 * 60 * 1000);
 
         try {
-            const events = await knex('events')
+            const events = await db('events')
                 .whereBetween('event_start_date', [now, in5mins])
                 .andWhere('active', true)
                 .andWhere('notified', false)
